@@ -11,12 +11,12 @@ const TodoItem = ({ todo, toggleComplete, deleteTodo }) => {
         >
           {todo.completed ? 'Undo' : 'Complete'}
         </button>
-        {/* <button
+        <button
           className="text-red-600"
           onClick={() => deleteTodo(todo._id)}
         >
           Delete
-        </button> */}
+        </button>
       </div>
     </div>
   );
