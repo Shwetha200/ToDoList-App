@@ -8,26 +8,42 @@ const TodoList = () => {
 
   useEffect(() => {
     const fetchTodos = async () => {
-      const { data } = await axios.get('/api/todos');
-      setTodos(data);
+      try {
+        const { data } = await axios.get('/api/todos');
+        setTodos(data);
+      } catch (error) {
+        console.error('Error fetching todos:', error);
+      }
     };
     fetchTodos();
   }, []);
 
   const addTodo = async () => {
-    const { data } = await axios.post('/api/todos', { text });
-    setTodos([...todos, data]);
-    setText('');
+    try {
+      const { data } = await axios.post('/api/todos', { text });
+      setTodos([...todos, data]);
+      setText('');
+    } catch (error) {
+      console.error('Error adding todo:', error);
+    }
   };
 
   const toggleComplete = async (id, completed) => {
-    const { data } = await axios.put(`/api/todos/${id}`, { completed });
-    setTodos(todos.map((todo) => (todo._id === id ? data : todo)));
+    try {
+      const { data } = await axios.put(`/api/todos/${id}`, { completed });
+      setTodos(todos.map((todo) => (todo._id === id ? data : todo)));
+    } catch (error) {
+      console.error('Error toggling complete:', error);
+    }
   };
 
   const deleteTodo = async (id) => {
-    await axios.delete(`/api/todos/${id}`);
-    setTodos(todos.filter((todo) => todo._id !== id));
+    try {
+      await axios.delete(`/api/todos/${id}`);
+      setTodos(todos.filter((todo) => todo._id !== id));
+    } catch (error) {
+      console.error('Error deleting todo:', error);
+    }
   };
 
   return (
